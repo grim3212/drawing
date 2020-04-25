@@ -38,8 +38,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      // Connect to the socket
-      this.$socketConnect({
+      this.$socket.playerJoin({
         username: this.username,
         roomCode: this.roomCode,
         isPlayer: true
