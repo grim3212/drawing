@@ -17,9 +17,6 @@ export default {
   name: 'MainLayout',
   data() {
     return {}
-  },
-  mounted() {
-    //this.$socket.on('connect')
   }
 }
 </script>
