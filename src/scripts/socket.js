@@ -1,9 +1,13 @@
 import io from 'socket.io-client'
+import { Notify } from 'quasar'
 
 class SocketWrapper {
-  constructor() {
+  constructor(router) {
     this.socket = null
+    this.router = router
   }
+
+  connected = () => this.socket !== null
 
   playerJoin = async opts => {
     if (!this.socket) {
@@ -12,10 +16,14 @@ class SocketWrapper {
           handshake: JSON.stringify({ ...opts })
         }
       })
-
       this.socket.on('kicked', ({ reason }) => {
-        console.log(`player was kicked for ${reason}`)
+        Notify.create({
+          message: `You've been kicked (${reason})`
+        })
         this.socket = null
+      })
+      this.socket.on('joined', () => {
+        this.router.push('playing')
       })
     } else {
       console.log('already connected')
@@ -30,9 +38,12 @@ class SocketWrapper {
         }
       })
       this.socket.on('kicked', ({ reason }) => {
-        console.log(`controller was kicked for ${reason}`)
+        Notify.create({
+          message: `You've been kicked (${reason})`
+        })
         this.socket = null
       })
+      this.socket.on('created', () => {})
     } else {
       console.log('already connected to socket')
     }

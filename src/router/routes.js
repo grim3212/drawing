@@ -16,6 +16,10 @@ const routes = [
             component: () => import('pages/forms/CreateGame.vue')
           }
         ]
+      },
+      {
+        path: 'playing',
+        component: () => import('pages/playing/Playing.vue')
       }
     ]
   }
