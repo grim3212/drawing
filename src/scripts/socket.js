@@ -29,6 +29,10 @@ class SocketWrapper {
           handshake: JSON.stringify({ ...opts })
         }
       })
+      this.socket.on('kicked', ({ reason }) => {
+        console.log(`controller was kicked for ${reason}`)
+        this.socket = null
+      })
     } else {
       console.log('already connected to socket')
     }
