@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="flex column justify-center items-center content-center">
-      <h2>Playing</h2>
+      <h2>Hosting</h2>
     </div>
 
     <router-view></router-view>
@@ -10,12 +10,12 @@
 
 <script>
 export default {
-  name: 'Playing',
-  beforeRouteEnter(to, from, next) {
+  name: 'Hosting'
+  /*beforeRouteEnter(to, from, next) {
     next(vm => {
       if (!vm.$socket.connected()) return next({ path: '/' })
       else return next()
     })
-  }
+  }*/
 }
 </script>

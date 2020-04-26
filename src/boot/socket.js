@@ -1,4 +1,4 @@
 import SocketWrapper from '../scripts/socket'
-export default async ({ Vue, router }) => {
-  Vue.prototype.$socket = new SocketWrapper(router)
+export default async ({ Vue, store, router }) => {
+  Vue.prototype.$socket = new SocketWrapper({ store, router })
 }

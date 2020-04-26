@@ -20,6 +20,16 @@ const routes = [
       {
         path: 'playing',
         component: () => import('pages/playing/Playing.vue')
+      },
+      {
+        path: 'hosting',
+        component: () => import('pages/hosting/Hosting.vue'),
+        children: [
+          {
+            path: '',
+            component: () => import('pages/hosting/Lobby.vue')
+          }
+        ]
       }
     ]
   }
