@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated class="gt-sm">
       <q-toolbar>
         <q-icon name="dns" style="font-size: 2rem;" />
       </q-toolbar>

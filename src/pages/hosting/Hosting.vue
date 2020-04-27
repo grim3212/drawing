@@ -10,12 +10,12 @@
 
 <script>
 export default {
-  name: 'Hosting'
-  /*beforeRouteEnter(to, from, next) {
+  name: 'Hosting',
+  beforeRouteEnter(to, from, next) {
     next(vm => {
-      if (!vm.$socket.connected()) return next({ path: '/' })
+      if (!vm.$socket.connected()) return next({ path: 'create' })
       else return next()
     })
-  }*/
+  }
 }
 </script>

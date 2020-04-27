@@ -1,31 +1,41 @@
 <template>
-  <q-form class="q-gutter-md" @submit="onSubmit">
-    <q-input
-      v-model="username"
-      filled
-      label="Username"
-      lazy-rules
-      :rules="[val => (val && val.length > 0) || 'Please add a username']"
-    />
+  <div class="join-game__container">
+    <q-form @submit="onSubmit">
+      <q-input
+        v-model="username"
+        filled
+        label="Username"
+        lazy-rules
+        :rules="[val => (val && val.length > 0) || 'Please add a username']"
+      />
 
-    <q-input
-      v-model="roomCode"
-      filled
-      label="Room Code"
-      lazy-rules
-      :rules="[
-        val => (val && val.length > 0) || 'Please type a room code',
-        val =>
-          val.length < 0 ||
-          val.length >= 4 ||
-          'Room codes are at least 4 characters'
-      ]"
-    />
+      <q-input
+        v-model="roomCode"
+        filled
+        label="Room Code"
+        lazy-rules
+        :rules="[
+          val => (val && val.length > 0) || 'Please type a room code',
+          val =>
+            val.length < 0 ||
+            val.length >= 4 ||
+            'Room codes are at least 4 characters'
+        ]"
+      />
 
-    <div>
-      <q-btn class="full-width" label="Submit" type="submit" color="primary" />
-    </div>
-  </q-form>
+      <div>
+        <q-btn class="full-width" label="Join" type="submit" color="primary" />
+      </div>
+    </q-form>
+    <br />
+    <q-btn
+      class="full-width q-mt-md gt-sm"
+      label="Create"
+      type="button"
+      color="secondary"
+      :to="{ path: 'create' }"
+    ></q-btn>
+  </div>
 </template>
 
 <script>
@@ -47,3 +57,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.join-game__container {
+  padding: 0 $space-base $space-base $space-base;
+}
+</style>

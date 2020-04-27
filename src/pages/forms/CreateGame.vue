@@ -1,23 +1,39 @@
 <template>
-  <q-form class="q-gutter-md" @submit="onSubmit">
-    <q-checkbox v-model="useMaxPlayers" label="Use Max Players" />
+  <div class="create-game__container">
+    <q-form @submit="onSubmit">
+      <q-checkbox v-model="useMaxPlayers" label="Use Max Players" />
 
-    <q-input
-      v-if="useMaxPlayers"
-      v-model.number="maxPlayers"
-      type="number"
-      filled
-      :rules="[
-        val =>
-          (val && val > 0) || 'Please give a maximum number of players allowed',
-        val => val < 20 || 'Maximum number of players can only be 20'
-      ]"
-    />
+      <q-input
+        v-if="useMaxPlayers"
+        v-model.number="maxPlayers"
+        type="number"
+        filled
+        :rules="[
+          val =>
+            (val && val > 0) ||
+            'Please give a maximum number of players allowed',
+          val => val < 20 || 'Maximum number of players can only be 20'
+        ]"
+      />
 
-    <div>
-      <q-btn class="full-width" label="Submit" type="submit" color="primary" />
-    </div>
-  </q-form>
+      <div>
+        <q-btn
+          class="full-width"
+          label="Create"
+          type="submit"
+          color="primary"
+        />
+      </div>
+    </q-form>
+    <br />
+    <q-btn
+      class="full-width q-mt-md gt-sm"
+      label="Join"
+      type="button"
+      color="secondary"
+      :to="{ path: '/' }"
+    ></q-btn>
+  </div>
 </template>
 
 <script>
@@ -41,3 +57,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.create-game__container {
+  padding: 0 $space-base $space-base $space-base;
+}
+</style>
