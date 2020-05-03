@@ -33,7 +33,7 @@
       label="Create"
       type="button"
       color="secondary"
-      :to="{ path: 'create' }"
+      :to="{ name: 'create' }"
     ></q-btn>
   </div>
 </template>
@@ -48,6 +48,10 @@ export default {
   },
   methods: {
     onSubmit() {
+      this.$store.commit('player/setupPlayer', {
+        username: this.username,
+        roomCode: this.roomCode
+      })
       this.$socket.playerJoin({
         username: this.username,
         roomCode: this.roomCode,

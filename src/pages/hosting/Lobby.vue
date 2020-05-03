@@ -1,8 +1,16 @@
 <template>
   <div class="flex column justify-center items-center content-center">
+    <h2>Drawing with Friends</h2>
     <p class="text-h5">
       Join at: <span class="text-teal">{{ room }}</span>
     </p>
+    <q-btn
+      class="full-width q-mt-md gt-sm"
+      label="Start Game"
+      type="button"
+      color="primary"
+      @click="$socket.startGame()"
+    ></q-btn>
     <div class="lobby__container">
       <lobby-player
         v-for="(player, idx) in players"

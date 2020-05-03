@@ -24,3 +24,10 @@ $info: #31ccec;
 $warning: #f2c037;
 
 $background: whitesmoke;
+
+$space-base: 16px;
+
+// Full height minus the 50px for the toolbar
+$content-height: calc(100vh - 50px);
+// Full height minus the 50px for the toolbar and space for both top and bottom
+$content-spaced-height: calc(#{$content-height} - #{$space-base} - #{$space-base});

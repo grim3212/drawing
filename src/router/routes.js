@@ -9,27 +9,47 @@ const routes = [
         children: [
           {
             path: '',
+            name: 'join',
             component: () => import('pages/forms/JoinGame.vue')
           },
           {
             path: 'create',
+            name: 'create',
             component: () => import('pages/forms/CreateGame.vue')
           }
         ]
+      }
+    ]
+  },
+  {
+    path: '/playing',
+    component: () => import('layouts/PlayerLayout.vue'),
+    children: [
+      {
+        path: 'drawing',
+        name: 'drawing',
+        component: () => import('pages/playing/Drawing.vue')
       },
       {
-        path: 'playing',
-        component: () => import('pages/playing/Playing.vue')
+        path: 'guessing',
+        name: 'guessing',
+        component: () => import('pages/playing/Guessing.vue')
+      }
+    ]
+  },
+  {
+    path: '/hosting',
+    component: () => import('layouts/DisplayLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'lobby',
+        component: () => import('pages/hosting/Lobby.vue')
       },
       {
-        path: 'hosting',
-        component: () => import('pages/hosting/Hosting.vue'),
-        children: [
-          {
-            path: '',
-            component: () => import('pages/hosting/Lobby.vue')
-          }
-        ]
+        path: 'round',
+        name: 'round',
+        component: () => import('pages/hosting/Round.vue')
       }
     ]
   }

@@ -31,7 +31,7 @@
       label="Join"
       type="button"
       color="secondary"
-      :to="{ path: '/' }"
+      :to="{ name: 'join' }"
     ></q-btn>
   </div>
 </template>

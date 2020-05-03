@@ -12,3 +12,19 @@ export function removePlayer(state, id) {
     state.players.splice(idx, 1)
   }
 }
+
+export function addGuess(state, { player, text, time }) {
+  state.guesses.push({
+    player,
+    text,
+    time
+  })
+}
+
+export function clearGuesses(state) {
+  state.guesses = []
+}
+
+export function addLine(state, line) {
+  state.lines.push(line)
+}
