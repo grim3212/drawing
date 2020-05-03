@@ -2,7 +2,11 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        DisplayLayout
+        <div class="flex row items-center full-width">
+          <span class="display__round">Round {{ round }}</span>
+          <span class="display__timer" :class="timerColor">{{ timer }}</span>
+          <span class="display__right"></span>
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -16,7 +20,17 @@
 export default {
   name: 'DisplayLayout',
   data() {
-    return {}
+    return {
+      timer: 60
+    }
+  },
+  computed: {
+    timerColor() {
+      return this.timer <= 10 ? 'text-negative' : 'text-positive'
+    },
+    round() {
+      return this.$store.state.controller.round
+    }
   }
   /*,
   beforeRouteEnter(to, from, next) {
@@ -27,3 +41,23 @@ export default {
   }*/
 }
 </script>
+
+<style lang="scss">
+.display__timer {
+  font-size: map-get($h3, 'size');
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.display__round {
+  flex: 1;
+  display: flex;
+  margin-right: auto;
+}
+.display__right {
+  flex: 1;
+  display: flex;
+  margin-left: auto;
+  justify-content: center;
+}
+</style>

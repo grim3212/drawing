@@ -12,9 +12,11 @@ export default function() {
           }
         },
         text: 'hey what up',
-        time: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000)
+        time: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).getTime()
       }
     ],
-    lines: []
+    lines: [],
+    prompt: 'this is a prompt',
+    round: 1
   }
 }

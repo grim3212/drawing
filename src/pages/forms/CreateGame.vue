@@ -50,7 +50,8 @@ export default {
         isPlayer: false,
         gameSettings: {
           useMaxPlayers: this.useMaxPlayers,
-          maxPlayers: this.maxPlayers
+          maxPlayers: this.maxPlayers,
+          rounds: 2
         }
       })
     }
