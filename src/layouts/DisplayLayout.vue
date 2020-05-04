@@ -19,17 +19,15 @@
 <script>
 export default {
   name: 'DisplayLayout',
-  data() {
-    return {
-      timer: 60
-    }
-  },
   computed: {
-    timerColor() {
-      return this.timer <= 10 ? 'text-negative' : 'text-positive'
+    timer() {
+      return this.$store.state.controller.timer
     },
     round() {
       return this.$store.state.controller.round
+    },
+    timerColor() {
+      return this.timer <= 10 ? 'text-negative' : 'text-positive'
     }
   }
   /*,

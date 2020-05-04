@@ -39,11 +39,36 @@ class SocketWrapper {
       this.socket.on('playerLeft', ({ id }) => {
         this.store.commit('controller/removePlayer', id)
       })
-      this.socket.on('gameStarted', () => {
+      this.socket.on('gameStarted', ({ drawer }) => {
         this.router.push({ name: 'round' })
+        this.store.commit('controller/setDrawer', drawer)
+        this.store.commit('controller/setGameState', 'PLAYING')
       })
       this.socket.on('newGuess', data => {
         this.store.commit('controller/addGuess', data)
+      })
+      this.socket.on('updatePlayerState', data => {
+        this.store.commit('controller/setPlayer', data)
+      })
+      this.socket.on('promptChosen', ({ prompt }) => {
+        this.store.commit('controller/setPrompt', prompt)
+      })
+      this.socket.on('timerUpdate', ({ time }) => {
+        this.store.commit('controller/setTimer', time)
+      })
+      this.socket.on('roundEnd', ({ time }) => {
+        this.store.commit('controller/setTimer', time)
+        this.store.commit('controller/setGameState', 'ROUNDEND')
+      })
+      this.socket.on('nextRound', ({ time, round, drawer }) => {
+        this.store.commit('controller/setTimer', time)
+        this.store.commit('controller/setRound', round)
+        this.store.commit('controller/setDrawer', drawer)
+        this.store.commit('controller/resetPlayerCorrectness')
+        this.store.commit('controller/setGameState', 'PLAYING')
+      })
+      this.socket.on('gameEnd', () => {
+        this.store.commit('controller/setGameState', 'GAMEEND')
       })
     } else {
       console.log('already connected to socket')
@@ -87,11 +112,44 @@ class SocketWrapper {
         this.store.commit('player/setId', id)
         this.router.push({ name: 'playing' })
       })
-      this.socket.on('gameStarted', () => {
-        this.router.push({ name: 'guessing' })
+      this.socket.on('gameStarted', data => {
+        if (data.drawer) {
+          this.router.push({ name: 'drawing' })
+          this.store.commit('player/setPromptOptions', data.prompts)
+        } else {
+          this.router.push({ name: 'guessing' })
+        }
+
+        this.store.commit('player/setGameState', 'PLAYING')
       })
       this.socket.on('newGuess', data => {
         this.store.commit('player/addGuess', data)
+      })
+      this.socket.on('correctGuess', () => {
+        this.store.commit('player/setCorrect', true)
+      })
+      this.socket.on('timerUpdate', ({ time }) => {
+        this.store.commit('player/setTimer', time)
+      })
+      this.socket.on('roundEnd', ({ time }) => {
+        this.store.commit('player/setCorrect', false)
+        this.store.commit('player/setTimer', time)
+        this.store.commit('player/setGameState', 'ROUNDEND')
+      })
+      this.socket.on('nextRound', ({ time, round, drawer, prompts }) => {
+        if (drawer) {
+          this.router.push({ name: 'drawing' })
+          this.store.commit('player/setPromptOptions', prompts)
+        } else {
+          this.router.push({ name: 'guessing' })
+        }
+
+        this.store.commit('player/setTimer', time)
+        this.store.commit('player/setRound', round)
+        this.store.commit('player/setGameState', 'PLAYING')
+      })
+      this.socket.on('gameEnd', () => {
+        this.store.commit('player/setGameState', 'GAMEEND')
       })
     } else {
       console.log('already connected')

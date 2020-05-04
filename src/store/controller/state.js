@@ -16,7 +16,18 @@ export default function() {
       }
     ],
     lines: [],
-    prompt: 'this is a prompt',
-    round: 1
+    prompt: '',
+    drawer: '',
+    round: 1,
+    timer: 60,
+
+    /**
+     * The state that the app is currently in
+     * STARTUP,
+     * PLAYING,
+     * ROUNDEND,
+     * GAMEEND
+     */
+    gameState: 'STARTUP'
   }
 }
