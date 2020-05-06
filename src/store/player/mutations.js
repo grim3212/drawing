@@ -27,6 +27,12 @@ export function setCorrect(state, correct) {
   state.correct = correct
 }
 
+export function resetAfterRoundEnd(state) {
+  state.correct = false
+  state.promptOptions = []
+  state.prompt = ''
+}
+
 export function setTimer(state, newTime) {
   state.timer = newTime
 }
@@ -37,4 +43,10 @@ export function setRound(state, newRound) {
 
 export function setGameState(state, newGameState) {
   state.gameState = newGameState
+}
+
+export function lockIn(state, icon, color) {
+  state.self.locked = true
+  state.self.icon.name = icon
+  state.self.icon.color = color
 }

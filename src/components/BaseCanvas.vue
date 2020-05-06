@@ -93,6 +93,9 @@ export default {
       this.width = parent.clientWidth
       this.height = parent.clientHeight
     },
+    clear() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    },
     onMouseDown(e) {
       this.currentlyDrawing = true
 

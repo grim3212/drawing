@@ -26,6 +26,11 @@ const routes = [
     component: () => import('layouts/PlayerLayout.vue'),
     children: [
       {
+        path: 'waiting',
+        name: 'waiting',
+        component: () => import('pages/playing/Waiting.vue')
+      },
+      {
         path: 'drawing',
         name: 'drawing',
         component: () => import('pages/playing/Drawing.vue')

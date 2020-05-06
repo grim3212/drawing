@@ -6,8 +6,9 @@ export default function() {
       roomCode: '',
       icon: {
         name: 'font_download',
-        color: 'orange'
-      }
+        color: '#000000'
+      },
+      locked: false
     },
     guesses: [
       {

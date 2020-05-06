@@ -19,6 +19,7 @@
 <script>
 import BaseCanvas from '../../components/BaseCanvas'
 import DisplayChat from '../../components/DisplayChat'
+import bus from '../../scripts/bus'
 export default {
   name: 'Round',
   components: {
@@ -36,11 +37,14 @@ export default {
       return this.$store.state.controller.prompt
     },
     roundEnd() {
-      return false
+      return this.$store.state.controller.gameState === 'ROUNDEND'
     }
   },
   mounted() {
-    this.$socket.socket.on('drawing', data => {
+    bus.$on('roundEnd', () => {
+      this.$refs.canvas.clear()
+    })
+    bus.$on('drawing', data => {
       this.$refs.canvas.drawLine(data)
     })
   }

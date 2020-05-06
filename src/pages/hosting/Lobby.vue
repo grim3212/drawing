@@ -5,6 +5,7 @@
       Join at: <span class="text-teal">{{ room }}</span>
     </p>
     <q-btn
+      :disable="!allPlayersLocked"
       class="full-width q-mt-md gt-sm"
       label="Start Game"
       type="button"
@@ -39,6 +40,14 @@ export default {
       get() {
         return this.$store.state.controller.players
       }
+    },
+    allPlayersLocked() {
+      for (const player of this.players) {
+        if (!player.locked) {
+          return false
+        }
+      }
+      return true
     }
   }
 }

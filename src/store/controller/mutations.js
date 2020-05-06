@@ -15,7 +15,7 @@ export function removePlayer(state, id) {
 
 export function setPlayer(state, newPlayer) {
   const foundIndex = state.players.findIndex(x => x.id === newPlayer.id)
-  if (foundIndex > -1) this.gameState.players[foundIndex] = newPlayer
+  if (foundIndex > -1) state.players[foundIndex] = newPlayer
 }
 
 export function resetPlayerCorrectness(state) {
@@ -44,10 +44,6 @@ export function setDrawer(state, newDrawer) {
   state.drawer = newDrawer
 }
 
-export function addLine(state, line) {
-  state.lines.push(line)
-}
-
 export function setTimer(state, newTime) {
   state.timer = newTime
 }
@@ -58,4 +54,9 @@ export function setRound(state, newRound) {
 
 export function setGameState(state, newGameState) {
   state.gameState = newGameState
+}
+
+export function lockInPlayer(state, player) {
+  const foundIndex = state.players.findIndex(x => x.id === player)
+  if (foundIndex > -1) state.players[foundIndex].locked = true
 }

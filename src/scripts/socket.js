@@ -1,5 +1,6 @@
 import io from 'socket.io-client'
 import { Notify } from 'quasar'
+import bus from './bus'
 
 class SocketWrapper {
   constructor({ store, router }) {
@@ -57,6 +58,7 @@ class SocketWrapper {
         this.store.commit('controller/setTimer', time)
       })
       this.socket.on('roundEnd', ({ time }) => {
+        bus.$emit('roundEnd')
         this.store.commit('controller/setTimer', time)
         this.store.commit('controller/setGameState', 'ROUNDEND')
       })
@@ -69,6 +71,12 @@ class SocketWrapper {
       })
       this.socket.on('gameEnd', () => {
         this.store.commit('controller/setGameState', 'GAMEEND')
+      })
+      this.socket.on('drawing', data => {
+        bus.$emit('drawing', data)
+      })
+      this.socket.on('lockInPlayer', ({ player }) => {
+        this.store.commit('controller/lockInPlayer', player)
       })
     } else {
       console.log('already connected to socket')
@@ -110,7 +118,7 @@ class SocketWrapper {
       })
       this.socket.on('joined', ({ id }) => {
         this.store.commit('player/setId', id)
-        this.router.push({ name: 'playing' })
+        this.router.push({ name: 'waiting' })
       })
       this.socket.on('gameStarted', data => {
         if (data.drawer) {
@@ -132,7 +140,7 @@ class SocketWrapper {
         this.store.commit('player/setTimer', time)
       })
       this.socket.on('roundEnd', ({ time }) => {
-        this.store.commit('player/setCorrect', false)
+        this.store.commit('player/resetAfterRoundEnd')
         this.store.commit('player/setTimer', time)
         this.store.commit('player/setGameState', 'ROUNDEND')
       })
@@ -156,6 +164,14 @@ class SocketWrapper {
     }
   }
 
+  lockIn = async () => {
+    if (!this.socket) {
+      console.error('socket not connected')
+    } else {
+      this.socket.emit('lockIn')
+    }
+  }
+
   playerDraw = async data => {
     if (!this.socket) {
       console.error('socket not connected')
@@ -169,6 +185,14 @@ class SocketWrapper {
       console.error('socket not connected')
     } else {
       this.socket.emit('newGuess', data)
+    }
+  }
+
+  choosePrompt = async data => {
+    if (!this.socket) {
+      console.error('socket not connected')
+    } else {
+      this.socket.emit('choosePrompt', data)
     }
   }
 
