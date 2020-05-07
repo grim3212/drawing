@@ -16,6 +16,10 @@ export default {
     drawable: {
       type: Boolean,
       default: false
+    },
+    drawColor: {
+      type: String,
+      default: '#000000'
     }
   },
   data() {
@@ -24,7 +28,6 @@ export default {
       height: 100,
       currentlyDrawing: false,
       selected: {
-        color: 'black',
         posX: 0,
         posY: 0
       }
@@ -119,7 +122,7 @@ export default {
           y0: this.selected.posY,
           x1: e.offsetX,
           y1: e.offsetY,
-          color: this.selected.color
+          color: this.drawColor
         })
       }
     },
@@ -138,7 +141,7 @@ export default {
         y0: this.selected.posY,
         x1: x,
         y1: y,
-        color: this.selected.color
+        color: this.drawColor
       })
       this.selected.posX = x
       this.selected.posY = y

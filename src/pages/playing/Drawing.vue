@@ -10,11 +10,66 @@
       <div class="drawing__canvas col-11">
         <div class="drawing__canvas-container">
           <base-canvas
+            ref="canvas"
             :drawable="true"
+            :draw-color="selectedColor"
             @drawLine="$socket.playerDraw"
           ></base-canvas>
         </div>
       </div>
+      <q-page-sticky class="column" position="bottom-right" :offset="[16, 16]">
+        <q-fab
+          icon="palette"
+          direction="up"
+          :style="
+            `background: ${selectedColor}; color: white; margin-bottom: 5px;`
+          "
+        >
+          <q-fab-action
+            v-if="selectedColor !== '#000000'"
+            color="black"
+            icon="colorize"
+            @click="selectedColor = '#000000'"
+          />
+          <q-fab-action
+            v-if="selectedColor !== '#FF0000'"
+            color="red"
+            icon="colorize"
+            @click="selectedColor = '#FF0000'"
+          />
+          <q-fab-action
+            v-if="selectedColor !== '#008000'"
+            color="green"
+            icon="colorize"
+            @click="selectedColor = '#008000'"
+          />
+          <q-fab-action
+            v-if="selectedColor !== '#0000FF'"
+            color="blue"
+            icon="colorize"
+            @click="selectedColor = '#0000FF'"
+          />
+          <q-fab-action
+            v-if="selectedColor !== '#FFA500'"
+            color="orange"
+            icon="colorize"
+            @click="selectedColor = '#FFA500'"
+          />
+          <q-fab-action
+            v-if="selectedColor !== '#800080'"
+            color="purple"
+            icon="colorize"
+            @click="selectedColor = '#800080'"
+          />
+        </q-fab>
+
+        <br />
+        <span class="fab-breaker"></span>
+
+        <q-fab icon="edit" direction="left" color="primary">
+          <q-fab-action color="negative" icon="delete" @click="clearCanvas" />
+        </q-fab>
+      </q-page-sticky>
     </div>
 
     <q-dialog
@@ -65,7 +120,8 @@ export default {
   data() {
     return {
       promptSelection: false,
-      selectedPrompt: -1
+      selectedPrompt: -1,
+      selectedColor: '#000000'
     }
   },
   computed: {
@@ -84,6 +140,10 @@ export default {
       const selected = this.promptOptions[this.selectedPrompt]
       this.$store.commit('player/setPrompt', selected)
       this.$socket.choosePrompt({ prompt: selected })
+    },
+    clearCanvas() {
+      this.$refs.canvas.clear()
+      this.$socket.clearCanvas()
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -112,6 +172,11 @@ export default {
       // Offset for padding on prompt container
       margin-top: -16px;
     }
+  }
+  .q-btn--fab .q-btn__wrapper {
+    min-width: 32px;
+    min-height: 32px;
+    padding: 8px;
   }
 }
 </style>

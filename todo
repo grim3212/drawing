@@ -1,0 +1,8 @@
+TODO:
+
+Implement scoreboard
+Implement hiding correct answers
+Lobby show which players have locked in and update icons
+Use the same icon color through all the app
+Disable drawing and input during round end
+Clear guesses at the end of each round

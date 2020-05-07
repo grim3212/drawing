@@ -75,6 +75,9 @@ class SocketWrapper {
       this.socket.on('drawing', data => {
         bus.$emit('drawing', data)
       })
+      this.socket.on('clearCanvas', () => {
+        bus.$emit('clearCanvas')
+      })
       this.socket.on('lockInPlayer', ({ player }) => {
         this.store.commit('controller/lockInPlayer', player)
       })
@@ -169,6 +172,14 @@ class SocketWrapper {
       console.error('socket not connected')
     } else {
       this.socket.emit('lockIn')
+    }
+  }
+
+  clearCanvas = async () => {
+    if (!this.socket) {
+      console.error('socket not connected')
+    } else {
+      this.socket.emit('clearCanvas')
     }
   }
 

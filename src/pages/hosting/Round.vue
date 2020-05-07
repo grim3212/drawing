@@ -41,6 +41,9 @@ export default {
     }
   },
   mounted() {
+    bus.$on('clearCanvas', () => {
+      this.$refs.canvas.clear()
+    })
     bus.$on('roundEnd', () => {
       this.$refs.canvas.clear()
     })
