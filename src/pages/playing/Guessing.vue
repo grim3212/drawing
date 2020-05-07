@@ -4,10 +4,10 @@
       <guess-message
         v-for="(guess, idx) of guesses"
         :key="idx"
-        :player="guess.player.username"
-        :icon="guess.player.icon"
+        :player="guess.player"
         :text="guess.text"
         :time="guess.time"
+        :correct="guess.correct"
       >
       </guess-message>
     </div>
@@ -53,23 +53,25 @@ export default {
       get() {
         return this.$store.state.player.guesses
       }
+    },
+    player() {
+      return this.$store.state.player.self
     }
   },
   methods: {
     onSubmit() {
       this.$refs.guessForm.validate().then(success => {
         if (success) {
-          this.$store
-            .dispatch('player/addGuess', {
-              text: this.chat,
-              time: Date.now()
-            })
-            .then(guess => {
-              this.$socket.sendGuess(guess)
-              // Reset input
-              this.chat = ''
-              this.$refs.guessForm.resetValidation()
-            })
+          const guess = {
+            player: this.player,
+            text: this.chat,
+            time: Date.now()
+          }
+
+          this.$socket.sendGuess(guess)
+          // Reset input
+          this.chat = ''
+          this.$refs.guessForm.resetValidation()
         }
       })
     }

@@ -6,10 +6,8 @@ export default function() {
       {
         player: {
           username: 'test',
-          icon: {
-            name: 'font_download',
-            color: 'orange'
-          }
+          icon: 'font_download',
+          favoriteColor: 'orange'
         },
         text: 'hey what up',
         time: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).getTime()

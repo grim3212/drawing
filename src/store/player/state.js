@@ -4,23 +4,21 @@ export default function() {
       id: '-1',
       username: 'Player',
       roomCode: '',
-      icon: {
-        name: 'font_download',
-        color: '#000000'
-      },
+      icon: 'font_download',
+      favoriteColor: '#000000',
       locked: false
     },
     guesses: [
       {
         player: {
+          id: '-1',
           username: 'test',
-          icon: {
-            name: 'font_download',
-            color: 'orange'
-          }
+          icon: 'font_download',
+          favoriteColor: 'orange'
         },
         text: 'hey what up',
-        time: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).getTime()
+        time: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).getTime(),
+        correct: true
       }
     ],
     promptOptions: [''],

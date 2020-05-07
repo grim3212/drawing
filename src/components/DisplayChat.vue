@@ -3,10 +3,10 @@
     <guess-message
       v-for="(guess, idx) of guesses"
       :key="idx"
-      :player="guess.player.username"
-      :icon="guess.player.icon"
+      :player="guess.player"
       :text="guess.text"
       :time="guess.time"
+      :correct="guess.correct"
     >
     </guess-message>
   </div>

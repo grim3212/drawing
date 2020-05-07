@@ -1,21 +1,29 @@
 <template>
   <div class="guess-message__container">
     <div class="row items-center">
-      <div class="flex col-9 items-center">
+      <div class="flex col items-center">
         <q-icon
-          :name="icon.name"
-          :class="icon.color"
+          :name="player.icon"
           :left="true"
           size="lg"
           class="guess-message__chat-icon"
+          :style="`color: ${player.favoriteColor};`"
         />
         <div class="guess-message__guess flex column">
-          <div class="guess-message__message col">{{ text }}</div>
-          <div class="guess-message__username col">{{ player }}</div>
+          <div v-if="!correct" class="guess-message__message col">
+            {{ text }}
+          </div>
+          <div
+            v-else-if="ownCorrect"
+            class="guess-message__message col text-green"
+          >
+            {{ text }}
+          </div>
+          <div v-else class="guess-message__message col text-green">
+            Correct!
+          </div>
+          <div class="guess-message__username col">{{ username }}</div>
         </div>
-      </div>
-      <div class="col-3">
-        <div class="guess-message__timestamp">{{ displayTime() }}</div>
       </div>
     </div>
   </div>
@@ -30,16 +38,16 @@ export default {
       default: ''
     },
     player: {
-      type: String,
-      default: ''
-    },
-    icon: {
       type: Object,
       default: () => {}
     },
     time: {
       type: Number,
       default: Date.now()
+    },
+    correct: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -47,33 +55,15 @@ export default {
       timer: 0
     }
   },
-  beforeDestroy() {
-    if (this.timer) clearTimeout(this.timer)
-    this.timer = 0
-  },
-  methods: {
-    displayTime() {
-      const { display, interval } = timeSince(this.time)
-
-      const hourTimeout = 60 * 60 * 1000
-      // Default to every hour
-      var timeoutLength = hourTimeout
-      if (interval === 'second' || interval === 'seconds') {
-        timeoutLength = 1000
-      } else if (interval === 'minute' || interval === 'minutes') {
-        timeoutLength = 60 * 1000
-      }
-
-      if (timeoutLength !== hourTimeout) {
-        // Lets force the component to update in the intervals we have setup
-        this.timer = setTimeout(() => {
-          this.$forceUpdate()
-        }, timeoutLength)
-      } else {
-        this.timer = 0
-      }
-
-      return display
+  computed: {
+    ownCorrect() {
+      return this.correct && this.player.id === this.selfId
+    },
+    username() {
+      return this.player.username
+    },
+    selfId() {
+      return this.$store.state.player.self.id
     }
   }
 }

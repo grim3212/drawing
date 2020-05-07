@@ -78,8 +78,8 @@ class SocketWrapper {
       this.socket.on('clearCanvas', () => {
         bus.$emit('clearCanvas')
       })
-      this.socket.on('lockInPlayer', ({ player }) => {
-        this.store.commit('controller/lockInPlayer', player)
+      this.socket.on('lockInPlayer', data => {
+        this.store.commit('controller/lockInPlayer', data)
       })
     } else {
       console.log('already connected to socket')
@@ -136,7 +136,8 @@ class SocketWrapper {
       this.socket.on('newGuess', data => {
         this.store.commit('player/addGuess', data)
       })
-      this.socket.on('correctGuess', () => {
+      this.socket.on('correctGuess', data => {
+        this.store.commit('player/addGuess', data)
         this.store.commit('player/setCorrect', true)
       })
       this.socket.on('timerUpdate', ({ time }) => {
@@ -167,11 +168,11 @@ class SocketWrapper {
     }
   }
 
-  lockIn = async () => {
+  lockIn = async data => {
     if (!this.socket) {
       console.error('socket not connected')
     } else {
-      this.socket.emit('lockIn')
+      this.socket.emit('lockIn', data)
     }
   }
 

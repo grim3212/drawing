@@ -45,8 +45,8 @@ export function setGameState(state, newGameState) {
   state.gameState = newGameState
 }
 
-export function lockIn(state, icon, color) {
+export function lockIn(state, { icon, color }) {
   state.self.locked = true
-  state.self.icon.name = icon
-  state.self.icon.color = color
+  state.self.icon = icon
+  state.self.favoriteColor = color
 }

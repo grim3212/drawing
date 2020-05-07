@@ -105,8 +105,14 @@ export default {
   },
   methods: {
     lockIn() {
-      this.$store.commit('player/lockIn', this.selectedIcon, this.selectedColor)
-      this.$socket.lockIn()
+      this.$store.commit('player/lockIn', {
+        icon: this.selectedIcon,
+        color: this.selectedColor
+      })
+      this.$socket.lockIn({
+        icon: this.selectedIcon,
+        color: this.selectedColor
+      })
     }
   }
 }

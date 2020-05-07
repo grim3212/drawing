@@ -1,12 +1,18 @@
 <template>
   <div class="flex row items-center content-center lobby-player__container">
     <q-icon
-      :name="icon.name"
-      :class="icon.color"
+      :name="locked ? 'lock' : 'lock_open'"
       size="lg"
       class="lobby-player__icon"
+      :style="`color: ${locked ? '#21ba45' : '#c10015'};`"
     />
-    <span>{{ username }}</span>
+    <q-icon
+      :name="player.icon"
+      size="lg"
+      class="lobby-player__icon"
+      :style="`color: ${player.favoriteColor};`"
+    />
+    <span>{{ player.username }}</span>
   </div>
 </template>
 
@@ -14,18 +20,14 @@
 export default {
   name: 'LobbyPlayer',
   props: {
-    username: {
-      type: String,
-      required: true
-    },
-    icon: {
+    player: {
       type: Object,
-      default() {
-        return {
-          name: 'font_download',
-          color: 'text-orange'
-        }
-      }
+      required: true
+    }
+  },
+  computed: {
+    locked() {
+      return this.player.locked
     }
   }
 }

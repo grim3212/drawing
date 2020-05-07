@@ -16,8 +16,7 @@
       <lobby-player
         v-for="(player, idx) in players"
         :key="idx"
-        :username="player.username"
-        :icon="player.icon"
+        :player="player"
       ></lobby-player>
     </div>
   </div>

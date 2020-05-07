@@ -56,7 +56,11 @@ export function setGameState(state, newGameState) {
   state.gameState = newGameState
 }
 
-export function lockInPlayer(state, player) {
+export function lockInPlayer(state, { player, icon, color }) {
   const foundIndex = state.players.findIndex(x => x.id === player)
-  if (foundIndex > -1) state.players[foundIndex].locked = true
+  if (foundIndex > -1) {
+    state.players[foundIndex].locked = true
+    state.players[foundIndex].icon = icon
+    state.players[foundIndex].favoriteColor = color
+  }
 }
