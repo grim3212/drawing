@@ -2,17 +2,7 @@ export default function() {
   return {
     room: '',
     players: [],
-    guesses: [
-      {
-        player: {
-          username: 'test',
-          icon: 'font_download',
-          favoriteColor: 'orange'
-        },
-        text: 'hey what up',
-        time: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).getTime()
-      }
-    ],
+    guesses: [],
     prompt: '',
     drawer: '',
     round: 1,

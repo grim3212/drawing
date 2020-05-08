@@ -21,7 +21,6 @@ import BaseCanvas from '../../components/BaseCanvas'
 import DisplayChat from '../../components/DisplayChat'
 import bus from '../../scripts/bus'
 export default {
-  name: 'Round',
   components: {
     BaseCanvas,
     DisplayChat
@@ -42,9 +41,6 @@ export default {
   },
   mounted() {
     bus.$on('clearCanvas', () => {
-      this.$refs.canvas.clear()
-    })
-    bus.$on('roundEnd', () => {
       this.$refs.canvas.clear()
     })
     bus.$on('drawing', data => {

@@ -46,6 +46,7 @@ class SocketWrapper {
         this.store.commit('controller/setGameState', 'PLAYING')
       })
       this.socket.on('newGuess', data => {
+        console.log(data)
         this.store.commit('controller/addGuess', data)
       })
       this.socket.on('updatePlayerState', data => {
@@ -58,19 +59,26 @@ class SocketWrapper {
         this.store.commit('controller/setTimer', time)
       })
       this.socket.on('roundEnd', ({ time }) => {
-        bus.$emit('roundEnd')
         this.store.commit('controller/setTimer', time)
         this.store.commit('controller/setGameState', 'ROUNDEND')
       })
       this.socket.on('nextRound', ({ time, round, drawer }) => {
+        bus.$emit('clearCanvas')
         this.store.commit('controller/setTimer', time)
         this.store.commit('controller/setRound', round)
         this.store.commit('controller/setDrawer', drawer)
+        this.store.commit('controller/clearGuesses')
         this.store.commit('controller/resetPlayerCorrectness')
         this.store.commit('controller/setGameState', 'PLAYING')
       })
-      this.socket.on('gameEnd', () => {
+      this.socket.on('gameEnd', ({ sortedPlayers }) => {
+        // Update with rank, ties, and final points
+        for (const player of sortedPlayers) {
+          this.store.commit('controller/setPlayer', player)
+        }
+
         this.store.commit('controller/setGameState', 'GAMEEND')
+        this.router.push({ name: 'scoreboard' })
       })
       this.socket.on('drawing', data => {
         bus.$emit('drawing', data)
@@ -160,8 +168,15 @@ class SocketWrapper {
         this.store.commit('player/setRound', round)
         this.store.commit('player/setGameState', 'PLAYING')
       })
-      this.socket.on('gameEnd', () => {
+      this.socket.on('gameEnd', ({ rank, points, tie }) => {
+        this.store.commit('player/setPoints', points)
+        this.store.commit('player/setRank', rank)
+        this.store.commit('player/setTie', tie)
         this.store.commit('player/setGameState', 'GAMEEND')
+        this.router.push({ name: 'score' })
+      })
+      this.socket.on('updatePoints', ({ points }) => {
+        this.store.commit('player/setPoints', points)
       })
     } else {
       console.log('already connected')

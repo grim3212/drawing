@@ -31,6 +31,7 @@ export function resetAfterRoundEnd(state) {
   state.correct = false
   state.promptOptions = []
   state.prompt = ''
+  state.guesses = []
 }
 
 export function setTimer(state, newTime) {
@@ -49,4 +50,16 @@ export function lockIn(state, { icon, color }) {
   state.self.locked = true
   state.self.icon = icon
   state.self.favoriteColor = color
+}
+
+export function setPoints(state, newPoints) {
+  state.points = newPoints
+}
+
+export function setRank(state, newRank) {
+  state.rank = newRank
+}
+
+export function setTie(state, newTie) {
+  state.tie = newTie
 }

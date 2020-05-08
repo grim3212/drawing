@@ -24,12 +24,8 @@ export function resetPlayerCorrectness(state) {
   })
 }
 
-export function addGuess(state, { player, text, time }) {
-  state.guesses.push({
-    player,
-    text,
-    time
-  })
+export function addGuess(state, guess) {
+  state.guesses.push(guess)
 }
 
 export function clearGuesses(state) {

@@ -8,23 +8,14 @@ export default function() {
       favoriteColor: '#000000',
       locked: false
     },
-    guesses: [
-      {
-        player: {
-          id: '-1',
-          username: 'test',
-          icon: 'font_download',
-          favoriteColor: 'orange'
-        },
-        text: 'hey what up',
-        time: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).getTime(),
-        correct: true
-      }
-    ],
+    guesses: [],
     promptOptions: [''],
     prompt: '',
     round: 1,
     timer: 60,
+    points: 0,
+    rank: 0,
+    tie: false,
     correct: false,
 
     /**

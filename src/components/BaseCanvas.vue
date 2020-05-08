@@ -20,6 +20,10 @@ export default {
     drawColor: {
       type: String,
       default: '#000000'
+    },
+    disable: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -100,6 +104,7 @@ export default {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
     },
     onMouseDown(e) {
+      if (this.disable) return
       this.currentlyDrawing = true
 
       const rect = e.target.getBoundingClientRect()
@@ -111,7 +116,7 @@ export default {
     },
 
     onMouseUp(e) {
-      if (!this.currentlyDrawing) {
+      if (this.disable || !this.currentlyDrawing) {
         return
       }
       this.currentlyDrawing = false
@@ -128,7 +133,7 @@ export default {
     },
 
     onMouseMove(e) {
-      if (!this.currentlyDrawing) {
+      if (this.disable || !this.currentlyDrawing) {
         return
       }
 

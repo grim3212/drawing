@@ -13,6 +13,7 @@
             ref="canvas"
             :drawable="true"
             :draw-color="selectedColor"
+            :disable="!canDraw"
             @drawLine="$socket.playerDraw"
           ></base-canvas>
         </div>
@@ -130,6 +131,12 @@ export default {
     },
     promptOptions() {
       return this.$store.state.player.promptOptions
+    },
+    canDraw() {
+      return (
+        this.$store.state.player.gameState !== 'ROUNDEND' &&
+        this.$store.state.player.gameState !== 'GAMEEND'
+      )
     }
   },
   mounted() {

@@ -1,12 +1,24 @@
 <template>
   <div class="create-game__container">
     <q-form @submit="onSubmit">
+      <q-input
+        v-model.number="numRounds"
+        type="number"
+        label="Number of Rounds"
+        filled
+        :rules="[
+          val => (val && val > 1) || 'Number of rounds must be at least 2',
+          val => val < 20 || 'Maximum number of rounds can only be 20'
+        ]"
+      />
+
       <q-checkbox v-model="useMaxPlayers" label="Use Max Players" />
 
       <q-input
         v-if="useMaxPlayers"
         v-model.number="maxPlayers"
         type="number"
+        label="Max number of Players"
         filled
         :rules="[
           val =>
@@ -41,7 +53,8 @@ export default {
   data() {
     return {
       useMaxPlayers: false,
-      maxPlayers: 10
+      maxPlayers: 20,
+      numRounds: 3
     }
   },
   methods: {
@@ -51,7 +64,7 @@ export default {
         gameSettings: {
           useMaxPlayers: this.useMaxPlayers,
           maxPlayers: this.maxPlayers,
-          rounds: 2
+          rounds: this.numRounds
         }
       })
     }

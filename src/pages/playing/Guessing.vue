@@ -19,6 +19,7 @@
           filled
           label="Guess"
           lazy-rules
+          :disable="!canGuess"
           :rules="[val => (val && val.length > 0) || 'Must have a guess']"
         >
           <template v-slot:after>
@@ -56,6 +57,16 @@ export default {
     },
     player() {
       return this.$store.state.player.self
+    },
+    correct() {
+      return this.$store.state.player.correct
+    },
+    canGuess() {
+      return (
+        this.$store.state.player.gameState !== 'ROUNDEND' &&
+        this.$store.state.player.gameState !== 'GAMEEND' &&
+        !this.correct
+      )
     }
   },
   methods: {

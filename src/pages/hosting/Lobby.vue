@@ -25,7 +25,6 @@
 <script>
 import LobbyPlayer from '../../components/LobbyPlayer'
 export default {
-  name: 'Lobby',
   components: {
     LobbyPlayer
   },

@@ -39,6 +39,11 @@ const routes = [
         path: 'guessing',
         name: 'guessing',
         component: () => import('pages/playing/Guessing.vue')
+      },
+      {
+        path: 'score',
+        name: 'score',
+        component: () => import('pages/playing/Score.vue')
       }
     ]
   },
@@ -55,6 +60,11 @@ const routes = [
         path: 'round',
         name: 'round',
         component: () => import('pages/hosting/Round.vue')
+      },
+      {
+        path: 'scoreboard',
+        name: 'scoreboard',
+        component: () => import('pages/hosting/Scoreboard.vue')
       }
     ]
   }
