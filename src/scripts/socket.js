@@ -7,6 +7,7 @@ class SocketWrapper {
     this.socket = null
     this.store = store
     this.router = router
+    this.connectionUrl = '127.0.0.1:5052'
   }
 
   connected = () => this.socket !== null
@@ -19,7 +20,7 @@ class SocketWrapper {
 
   createLobby = async opts => {
     if (!this.socket) {
-      this.socket = await io('localhost:5052', {
+      this.socket = await io(this.connectionUrl, {
         query: {
           handshake: JSON.stringify({ ...opts })
         }
@@ -46,7 +47,6 @@ class SocketWrapper {
         this.store.commit('controller/setGameState', 'PLAYING')
       })
       this.socket.on('newGuess', data => {
-        console.log(data)
         this.store.commit('controller/addGuess', data)
       })
       this.socket.on('updatePlayerState', data => {
@@ -116,7 +116,7 @@ class SocketWrapper {
 
   playerJoin = async opts => {
     if (!this.socket) {
-      this.socket = await io('localhost:5052', {
+      this.socket = await io(this.connectionUrl, {
         query: {
           handshake: JSON.stringify({ ...opts })
         }
