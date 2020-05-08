@@ -7,7 +7,9 @@ class SocketWrapper {
     this.socket = null
     this.store = store
     this.router = router
-    this.connectionUrl = '127.0.0.1:5052'
+    this.connectionUrl = process.env.PROD
+      ? 'https://drawing-server.grimoid.com'
+      : '127.0.0.1:5052'
   }
 
   connected = () => this.socket !== null

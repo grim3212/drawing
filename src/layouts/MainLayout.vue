@@ -34,8 +34,12 @@ export default {
     }
   },
   mounted() {
+    var connectionUrl = process.env.PROD
+      ? 'https://drawing-server.grimoid.com/api'
+      : '/api'
+
     this.$axios
-      .get('/api')
+      .get(connectionUrl)
       .then(({ data }) => {
         this.serverUp = data
       })
