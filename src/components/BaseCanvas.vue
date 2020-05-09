@@ -113,6 +113,8 @@ export default {
 
       this.selected.posX = x
       this.selected.posY = y
+
+      return false
     },
 
     onMouseUp(e) {
