@@ -133,6 +133,9 @@ export default {
     },
 
     onMouseMove(e) {
+      e.preventDefault()
+      e.stopPropagation()
+
       if (this.disable || !this.currentlyDrawing) {
         return
       }

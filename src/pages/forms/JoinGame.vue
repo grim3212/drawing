@@ -14,6 +14,7 @@
         filled
         label="Room Code"
         lazy-rules
+        mask="XXXXX"
         :rules="[
           val => (val && val.length > 0) || 'Please type a room code',
           val =>
