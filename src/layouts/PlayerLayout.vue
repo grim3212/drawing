@@ -29,14 +29,13 @@ export default {
     timerColor() {
       return this.timer <= 10 ? 'text-negative' : 'text-positive'
     }
-  }
-  /*,
+  },
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (!vm.$socket.connected()) return next({ name: 'join' })
       else return next()
     })
-  }*/
+  }
 }
 </script>
 
