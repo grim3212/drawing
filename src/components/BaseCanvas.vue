@@ -68,6 +68,17 @@ export default {
         throttle(this.onMouseMove, 10),
         false
       )
+
+      // Prevent scrolling when touching the canvas
+      document.body.addEventListener('touchstart', this.preventScroll, {
+        passive: false
+      })
+      document.body.addEventListener('touchend', this.preventScroll, {
+        passive: false
+      })
+      document.body.addEventListener('touchmove', this.preventScroll, {
+        passive: false
+      })
     }
   },
   beforeDestroy() {
@@ -92,6 +103,17 @@ export default {
         throttle(this.onMouseMove, 10),
         false
       )
+
+      // Prevent scrolling when touching the canvas
+      document.body.removeEventListener('touchstart', this.preventScroll, {
+        passive: false
+      })
+      document.body.removeEventListener('touchend', this.preventScroll, {
+        passive: false
+      })
+      document.body.removeEventListener('touchmove', this.preventScroll, {
+        passive: false
+      })
     }
   },
   methods: {
@@ -103,6 +125,13 @@ export default {
     clear() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
     },
+
+    preventScroll(e) {
+      if (e.target === this.canvas) {
+        e.preventDefault()
+      }
+    },
+
     onMouseDown(e) {
       if (this.disable) return
       this.currentlyDrawing = true
@@ -113,8 +142,6 @@ export default {
 
       this.selected.posX = x
       this.selected.posY = y
-
-      return false
     },
 
     onMouseUp(e) {
@@ -135,9 +162,6 @@ export default {
     },
 
     onMouseMove(e) {
-      e.preventDefault()
-      e.stopPropagation()
-
       if (this.disable || !this.currentlyDrawing) {
         return
       }
@@ -197,6 +221,8 @@ export default {
 
   .base-canvas__canvas {
     outline: black 3px solid;
+    cursor: crosshair;
+    touch-action: none;
   }
 }
 </style>
